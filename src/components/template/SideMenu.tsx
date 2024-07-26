@@ -1,4 +1,9 @@
-import { HomeIcon, LogoutIcon, SettingsIcon } from '@/components/icons'
+import {
+  HomeIcon,
+  InfoIcon,
+  LogoutIcon,
+  SettingsIcon,
+} from '@/components/icons'
 import { MenuItem } from './MenuItem'
 import { Logo } from './Logo'
 
@@ -11,6 +16,7 @@ export function SideMenu() {
       <ul className="flex-grow">
         <MenuItem url="/" text="Home" icon={HomeIcon} />
         <MenuItem url="/settings" text="Ajustes" icon={SettingsIcon} />
+        <MenuItem url="/status" text="Status" icon={InfoIcon} />
       </ul>
       <ul>
         <MenuItem
