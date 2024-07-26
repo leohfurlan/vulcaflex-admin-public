@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BarrelPlate } from './BarrelPlate'
-import { IBarrel } from '@/models/Barrel'
+import { BarrelPlateType, IBarrel } from '@/models/Barrel'
 import { setPlateStyle } from '@/utils/setPlateStyle'
 
 interface BarrelProps {
@@ -8,7 +8,9 @@ interface BarrelProps {
 }
 
 export function Barrel({ barrel }: BarrelProps) {
-  const [currentPlate, setCurrentPlate] = useState(1)
+  const [currentPlate, setCurrentPlate] = useState<BarrelPlateType>(
+    barrel.placas[0],
+  )
   return (
     <>
       <div className="w-full max-w-[640px] mb-6">
@@ -22,7 +24,7 @@ export function Barrel({ barrel }: BarrelProps) {
             <div
               key={`${plate[0]}-${idx}`}
               className={style}
-              onClick={() => setCurrentPlate(plate[0] as number)}
+              onClick={() => setCurrentPlate(plate)}
             >
               <span className="text-xl font-bold">Placa {plate[0]}</span>
             </div>
@@ -30,7 +32,7 @@ export function Barrel({ barrel }: BarrelProps) {
         })}
       </div>
 
-      <BarrelPlate />
+      <BarrelPlate plate={currentPlate} />
     </>
   )
 }

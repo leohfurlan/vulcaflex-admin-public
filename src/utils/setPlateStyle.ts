@@ -1,8 +1,8 @@
-import { BarrelPlate } from '@/models/Barrel'
+import { BarrelPlateType } from '@/models/Barrel'
 import { getPlateColor, PlateStatusOrder } from './plateStatus'
 
 export function setPlateStyle(
-  plate: BarrelPlate,
+  plate: BarrelPlateType,
   isFirst: boolean,
   isLast: boolean,
 ): string {
@@ -17,7 +17,6 @@ export function setPlateStyle(
     style += ' rounded-b-sm'
   }
 
-  const statuses: string[] = []
   let min = Infinity
 
   for (let i = 1; i < plate.length; i++) {
@@ -25,11 +24,9 @@ export function setPlateStyle(
     if (statusNumber < min) {
       min = statusNumber
     }
-    statuses.push(plate[i] as string)
   }
 
   const bgColor = getPlateColor(min)
-
   style += ` ${bgColor}`
 
   return style

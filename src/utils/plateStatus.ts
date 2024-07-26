@@ -16,15 +16,15 @@ export const PlateStatusOrder = {
 
 export function getPlateColor(status: number) {
   switch (status) {
-    case 5:
+    case 5: // >10mm
       return 'bg-green-600'
-    case 4:
-      return 'bg-yellow-600'
-    case 3:
+    case 4: // <10mm
+      return 'bg-yellow-400'
+    case 3: // <8mm
       return 'bg-orange-600'
-    case 2:
+    case 2: // <5mm
       return 'bg-red-600'
-    default:
+    default: // erro
       return 'bg-gray-900'
   }
 }
