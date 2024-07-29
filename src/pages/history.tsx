@@ -1,5 +1,14 @@
 import { Layout } from '@/components/template/Layout'
 import {
+  fakePlateHistory1,
+  fakePlateHistory2,
+  fakePlateHistory3,
+  fetchPlateHistory,
+} from '@/data/fakeHistory'
+import { IPlateHistory } from '@/models/BarrelHistory'
+import { inverseTickMap, mapSeries, sortHistory, tickMap } from '@/utils/chart'
+import { useEffect, useState } from 'react'
+import {
   Legend,
   Line,
   LineChart,
@@ -9,78 +18,53 @@ import {
   YAxis,
 } from 'recharts'
 
+type SeriesType = {
+  name: string
+  data: { value: string }[]
+}
+
 export default function History() {
-  const series = [
-    {
-      name: 'Placa 1',
-      data: [
-        { time: '00:01', value: '<8mm' },
-        { time: '00:02', value: '<8mm' },
-        { time: '00:03', value: '<8mm' },
-        { time: '00:04', value: '<8mm' },
-        { time: '00:05', value: '<8mm' },
-        { time: '00:06', value: '<8mm' },
-      ],
-    },
-    {
-      name: 'Placa 2',
-      data: [
-        { time: '00:01', value: '<5mm' },
-        { time: '00:02', value: '<5mm' },
-        { time: '00:03', value: '<5mm' },
-        { time: '00:04', value: '<5mm' },
-        { time: '00:05', value: '<5mm' },
-        { time: '00:06', value: '<5mm' },
-      ],
-    },
-    {
-      name: 'Placa 3',
-      data: [
-        { time: '00:01', value: 'erro' },
-        { time: '00:02', value: 'erro' },
-        { time: '00:03', value: 'erro' },
-        { time: '00:04', value: 'erro' },
-        { time: '00:05', value: 'erro' },
-        { time: '00:06', value: 'erro' },
-      ],
-    },
-  ]
+  const [series, setSeries] = useState<SeriesType[]>()
+  const fetchPlate1 = async () => {
+    return await fetchPlateHistory(fakePlateHistory1)
+  }
+  const fetchPlate2 = async () => {
+    return await fetchPlateHistory(fakePlateHistory2)
+  }
+  const fetchPlate3 = async () => {
+    return await fetchPlateHistory(fakePlateHistory3)
+  }
 
-  const tickMap = {
-    erro: 1,
-    '<5mm': 2,
-    '<8mm': 3,
-    '<10mm': 4,
-    '>10mm': 5,
-  } as Record<string, number>
+  useEffect(() => {
+    const fetchData = async () => {
+      const [data1, data2, data3] = await Promise.all([
+        fetchPlate1(),
+        fetchPlate2(),
+        fetchPlate3(),
+      ])
+      const res1 = sortHistory(data1 as IPlateHistory, 'Placa 18')
+      const res2 = sortHistory(data2 as IPlateHistory, 'Placa 19')
+      const res3 = sortHistory(data3 as IPlateHistory, 'Placa 20')
+      setSeries([res1, res2, res3])
+    }
 
-  const inverseTickMap = {
-    1: 'erro',
-    2: '<5mm',
-    3: '<8mm',
-    4: '<10mm',
-    5: '>10mm',
-  } as Record<number, string>
+    fetchData()
+  }, [])
 
-  const mappedSeries = series.map((s) => ({
-    ...s,
-    data: s.data.map((d) => ({
-      ...d,
-      value: tickMap[d.value],
-    })),
-  }))
+  const mappedSeries = series && mapSeries(series)
+  const colors = ['#8884d8', '#82ca9d', '#ff7300']
 
   return (
     <div>
       <Layout title="Histórico" subTitle="Informações de histórico de placa">
         <h6>Tambor: XXX-0102034</h6>
         <section className="mt-6">
-          <ResponsiveContainer width="100%" height={600}>
+          <ResponsiveContainer width="100%" height={400}>
             <LineChart width={1024} height={300}>
               <XAxis
-                dataKey="time"
-                type="category"
+                dataKey="index"
                 allowDuplicatedCategory={false}
+                tickFormatter={(tick) => tick + 1}
               />
               <YAxis
                 dataKey="value"
@@ -90,12 +74,14 @@ export default function History() {
               />
               <Tooltip formatter={(value: number) => inverseTickMap[value]} />
               <Legend />
-              {mappedSeries.map((s) => (
+              {mappedSeries?.map((s, idx) => (
                 <Line
                   dataKey="value"
+                  type="monotone"
                   data={s.data}
                   name={s.name}
                   key={s.name}
+                  stroke={colors[idx]}
                 />
               ))}
             </LineChart>

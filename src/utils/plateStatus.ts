@@ -1,11 +1,3 @@
-export const PlateStatus = {
-  GOOD: '>10mm',
-  INTERMEDIATE: '<10mm',
-  WARNING: '<8mm',
-  DANGER: '<5mm',
-  ERROR: 'erro',
-}
-
 export const PlateStatusOrder = {
   '>10mm': 5,
   '<10mm': 4,
