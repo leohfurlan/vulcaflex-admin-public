@@ -12,7 +12,7 @@ export function MenuItem(props: MenuItemProps) {
   function renderMenuItem() {
     return (
       <div
-        className={`flex flex-col w-20 h-20 justify-center items-center text-gray-600 dark:text-gray-200 ${props.className}`}
+        className={`flex flex-col w-20 h-20 justify-center items-center text-gray-600 ${props.className}`}
       >
         {props.icon}
         <span className="text-sm font-light text-center">{props.text}</span>
@@ -21,10 +21,7 @@ export function MenuItem(props: MenuItemProps) {
   }
 
   return (
-    <li
-      onClick={props.onClick}
-      className="hover:bg-gray-100 cursor-pointer hover:dark:bg-gray-700"
-    >
+    <li onClick={props.onClick} className="hover:bg-gray-100 cursor-pointer">
       {props.url ? (
         <Link href={props.url}>{renderMenuItem()}</Link>
       ) : (
