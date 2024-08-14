@@ -1,10 +1,23 @@
-import { IBarrel } from '@/models/Barrel'
+import { IBarrelDetailsResponse } from '@/models/Barrel'
 
-export const fakeBarrel: IBarrel = {
-  atualizacao: [['Tue, 02 Jul 2024 15:02:00 GMT']],
+export const fakeBarrel: IBarrelDetailsResponse = {
+  TAG: 'XX-0102VLC',
+  responsavelInstalacao: 'Leonardo Furlan',
+  dataInstalacao: '2024-08-15',
+  horasTrabalhadas: 84,
+  localizacao: { latidude: 12, longitude: 13 },
   placas: [
-    [18, '>10mm', '>10mm', '>10mm'],
-    [19, '>10mm', '<8mm', '<8mm'],
-    [20, '<8mm', 'erro', '<10mm'],
+    {
+      codigo: '18',
+      secoes: { secao1: 5, secao2: 5, secao3: 8 },
+    },
+    {
+      codigo: '19',
+      secoes: { secao1: 10, secao2: 10, secao3: 10 },
+    },
+    {
+      codigo: '20',
+      secoes: { secao1: 0, secao2: -1, secao3: 10 },
+    },
   ],
 }

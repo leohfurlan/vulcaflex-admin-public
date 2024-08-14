@@ -1,22 +1,7 @@
-export const PlateStatusOrder = {
-  '>10mm': 5,
-  '<10mm': 4,
-  '<8mm': 3,
-  '<5mm': 2,
-  erro: 1,
-}
-
-export function getPlateColor(status: number) {
-  switch (status) {
-    case 5: // >10mm
-      return 'bg-green-600'
-    case 4: // <10mm
-      return 'bg-yellow-400'
-    case 3: // <8mm
-      return 'bg-orange-600'
-    case 2: // <5mm
-      return 'bg-red-600'
-    default: // erro
-      return 'bg-gray-900'
-  }
+export const PlateStatus: Record<number, string> = {
+  0: '<5mm',
+  5: '<8mm',
+  8: '<10mm',
+  10: '>10mm',
+  '-1': 'erro',
 }

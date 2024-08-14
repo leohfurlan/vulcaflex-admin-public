@@ -1,6 +1,22 @@
-export type BarrelPlateType = (number | string)[]
+export interface IPlate {
+  codigo: string
+  secoes: {
+    secao1: number
+    secao2: number
+    secao3: number
+  }
+}
 
-export interface IBarrel {
-  atualizacao: string[][]
-  placas: BarrelPlateType[]
+interface ILocation {
+  latidude: number
+  longitude: number
+}
+
+export interface IBarrelDetailsResponse {
+  TAG: string
+  localizacao: ILocation
+  dataInstalacao: string
+  horasTrabalhadas: number
+  responsavelInstalacao: string
+  placas: IPlate[]
 }

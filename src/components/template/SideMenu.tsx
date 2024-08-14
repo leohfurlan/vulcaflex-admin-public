@@ -10,8 +10,7 @@ export function SideMenu() {
       </div>
       <ul className="flex-grow">
         <MenuItem url="/" text="Home" icon={HomeIcon} />
-        <MenuItem url="/history" text="Histórico" icon={ChartIcon} />
-        <MenuItem url="/status" text="Status" icon={InfoIcon} />
+        <MenuItem url="/status" text="Monitorar" icon={ChartIcon} />
       </ul>
       <ul>
         <MenuItem

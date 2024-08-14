@@ -1,31 +1,40 @@
-import { BarrelPlateType } from '@/models/Barrel'
-import { getPlateColor, PlateStatusOrder } from '@/utils/plateStatus'
+import { IPlate } from '@/models/Barrel'
+import { PlateStatus } from '@/utils/plateStatus'
+import { plateCodeColor, sectionColor } from '@/utils/plateStyles'
 
 interface BarrelPlateProps {
-  plate: BarrelPlateType
+  plate: IPlate
 }
 
 export function BarrelPlate({ plate }: BarrelPlateProps) {
+  const thinest = Object.values(plate.secoes).sort((a, b) => a - b)[0]
+  const { secao1, secao2, secao3 } = plate.secoes
+
   return (
-    <div>
-      <h2 className="text-lg font-bold mb-4">Placa {plate[0]}</h2>
-      <div className="w-full max-w-[640px] border border-gray-500 flex justify-between rounded-sm pt-2 pb-4">
-        {plate.slice(1).map((value, idx) => {
-          const plateStatus = PlateStatusOrder[value as keyof object]
-          const bgColor = getPlateColor(plateStatus)
-          return (
-            <div className="flex-1 text-center">
-              <h2 className="border-b-2 border-b-gray-500 mb-3 text-gray-200 font-bold">
-                seção {idx + 1}
-              </h2>
-              <div
-                className={`h-8 rounded-sm flex items-center justify-center mx-2 ${bgColor}`}
-              >
-                <span className="text-white text-sm">{value}</span>
-              </div>
-            </div>
-          )
-        })}
+    <div className="grid grid-cols-4 gap-3 px-3 border border-gray-600 p-2 rounded-lg cursor-pointer mt-1">
+      <span className={`self-center font-bold ${plateCodeColor(thinest)}`}>
+        {plate.codigo}
+      </span>
+      <div
+        className={`border-2 ${sectionColor(
+          secao1,
+        )} p-1 rounded-lg text-center`}
+      >
+        {PlateStatus[secao1]}
+      </div>
+      <div
+        className={`border-2 ${sectionColor(
+          secao2,
+        )} p-1 rounded-lg text-center`}
+      >
+        {PlateStatus[secao2]}
+      </div>
+      <div
+        className={`border-2 ${sectionColor(
+          secao3,
+        )} p-1 rounded-lg text-center`}
+      >
+        {PlateStatus[secao3]}
       </div>
     </div>
   )
