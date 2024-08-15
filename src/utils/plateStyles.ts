@@ -1,4 +1,8 @@
-export function plateCodeColor(status: number) {
+export function plateCodeColor(status: number, removeStyle: boolean) {
+  if (removeStyle) {
+    return 'text-gray-400'
+  }
+
   switch (status) {
     case 0: // <5mm
       return 'text-red-600'
@@ -13,7 +17,11 @@ export function plateCodeColor(status: number) {
   }
 }
 
-export function sectionColor(status: number) {
+export function sectionColor(status: number, removeStyle: boolean) {
+  if (removeStyle) {
+    return 'border-gray-400'
+  }
+
   switch (status) {
     case 0: // <5mm
       return 'border-red-600'
@@ -26,4 +34,8 @@ export function sectionColor(status: number) {
     default: // erro
       return 'border-gray-900'
   }
+}
+
+export function textColor(removeStyle: boolean) {
+  return removeStyle ? 'text-gray-400' : ''
 }

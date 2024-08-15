@@ -1,11 +1,19 @@
+import { useState } from 'react'
 import { IBarrelDetailsResponse } from '@/models/Barrel'
 import { BarrelPlate } from './BarrelPlate'
+import { EMPTY } from '@/constants'
 
 interface BarrelProps {
   barrel: IBarrelDetailsResponse
 }
 
 export function Barrel({ barrel }: BarrelProps) {
+  const [chosenPlate, setChosenPlate] = useState<string>(EMPTY)
+
+  const handleSelectPlate = (code: string) => {
+    return code === chosenPlate ? setChosenPlate(EMPTY) : setChosenPlate(code)
+  }
+
   return (
     <div className="w-full max-w-[480px] border-t-4 border-gray-500 h-20 rounded-l-xl rounded-r-xl border-l-8 border-r-8 p-2 relative">
       <div className="absolute h-4 w-4 bg-gray-500 top-7 -right-5 rounded-r-sm"></div>
@@ -19,7 +27,13 @@ export function Barrel({ barrel }: BarrelProps) {
       <div>
         {/** upper div for scrolling when there are more than 3 barrels */}
         {barrel.placas.map((plate) => (
-          <BarrelPlate key={plate.codigo} plate={plate} />
+          <BarrelPlate
+            key={plate.codigo}
+            plate={plate}
+            onClick={() => handleSelectPlate(plate.codigo)}
+            isChosen={plate.codigo === chosenPlate}
+            chosenPlate={chosenPlate}
+          />
         ))}
       </div>
     </div>
