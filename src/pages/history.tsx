@@ -68,8 +68,8 @@ export default function StatusPage() {
       <Layout title="Histórico" subTitle="Informações de histórico da placa">
         <section className="mt-6 text-gray-700">
           <h6 className="mb-4 font-bold">Histórico da Placa {plate}</h6>
-          <ResponsiveContainer width="100%" height={600}>
-            <LineChart width={500} height={300}>
+          <ResponsiveContainer width="100%" height={400}>
+            <LineChart width={500} height={400}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="category"

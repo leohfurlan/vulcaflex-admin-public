@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/select'
 import { useForm } from 'react-hook-form'
 import { Button } from './ui/button'
+import { useFormContext } from '@/contexts/FormContext'
 
 export interface IFormValues {
   client: string
@@ -24,7 +25,8 @@ interface StatusFormProps {
 }
 
 export function StatusForm({ handleClick }: StatusFormProps) {
-  const form = useForm<IFormValues>()
+  const { formData } = useFormContext()
+  const form = useForm<IFormValues>({ defaultValues: formData })
 
   const handleChange = (cb: (s: string) => void, val: string) => {
     cb(val)

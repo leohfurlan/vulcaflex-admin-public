@@ -1,12 +1,14 @@
 import { Barrel } from '@/components/Barrel'
 import { IFormValues, StatusForm } from '@/components/StatusForm'
 import { Layout } from '@/components/template/Layout'
+import { useFormContext } from '@/contexts/FormContext'
 import { fakeBarrel1, fakeBarrel2, fakeBarrel3 } from '@/data/fakeBarrel'
 import { IBarrelDetailsResponse } from '@/models/Barrel'
 import { useState } from 'react'
 
 export default function StatusPage() {
   const [currentBarrel, setCurrentBarrel] = useState<IBarrelDetailsResponse>()
+  const { setFormData } = useFormContext()
 
   const handleClick = (data: IFormValues) => {
     if (data && data.barrel) {
@@ -22,6 +24,8 @@ export default function StatusPage() {
         setCurrentBarrel(fakeBarrel3)
       }
     }
+
+    setFormData(data)
   }
 
   return (

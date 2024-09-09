@@ -9,6 +9,11 @@ export const fakeHistory1 = () => {
     {
       name: 'Seção 1',
       data: [
+        { category: '21/08', value: '>10mm' },
+        { category: '22/08', value: '>10mm' },
+        { category: '23/08', value: '>10mm' },
+        { category: '24/08', value: '>10mm' },
+        { category: '25/08', value: '>10mm' },
         { category: '26/08', value: '>10mm' },
         { category: '27/08', value: '>10mm' },
         { category: '28/08', value: '>10mm' },
@@ -29,6 +34,11 @@ export const fakeHistory1 = () => {
     {
       name: 'Seção 2',
       data: [
+        { category: '21/08', value: '>10mm' },
+        { category: '22/08', value: '>10mm' },
+        { category: '23/08', value: '>10mm' },
+        { category: '24/08', value: '>10mm' },
+        { category: '25/08', value: '>10mm' },
         { category: '26/08', value: '>10mm' },
         { category: '27/08', value: '>10mm' },
         { category: '28/08', value: '>10mm' },
@@ -49,6 +59,11 @@ export const fakeHistory1 = () => {
     {
       name: 'Seção 3',
       data: [
+        { category: '21/08', value: '>10mm' },
+        { category: '22/08', value: '>10mm' },
+        { category: '23/08', value: '>10mm' },
+        { category: '24/08', value: '>10mm' },
+        { category: '25/08', value: '>10mm' },
         { category: '26/08', value: '>10mm' },
         { category: '27/08', value: '>10mm' },
         { category: '28/08', value: '>10mm' },
@@ -75,6 +90,11 @@ export const fakeHistory2 = () => {
     {
       name: 'Seção 1',
       data: [
+        { category: '21/08', value: '>10mm' },
+        { category: '22/08', value: '>10mm' },
+        { category: '23/08', value: '>10mm' },
+        { category: '24/08', value: '>10mm' },
+        { category: '25/08', value: '>10mm' },
         { category: '26/08', value: '>10mm' },
         { category: '27/08', value: '>10mm' },
         { category: '28/08', value: '>10mm' },
@@ -95,6 +115,11 @@ export const fakeHistory2 = () => {
     {
       name: 'Seção 2',
       data: [
+        { category: '21/08', value: '>10mm' },
+        { category: '22/08', value: '>10mm' },
+        { category: '23/08', value: '>10mm' },
+        { category: '24/08', value: '>10mm' },
+        { category: '25/08', value: '>10mm' },
         { category: '26/08', value: '>10mm' },
         { category: '27/08', value: '>10mm' },
         { category: '28/08', value: '>10mm' },
@@ -115,6 +140,11 @@ export const fakeHistory2 = () => {
     {
       name: 'Seção 3',
       data: [
+        { category: '21/08', value: '>10mm' },
+        { category: '22/08', value: '>10mm' },
+        { category: '23/08', value: '>10mm' },
+        { category: '24/08', value: '>10mm' },
+        { category: '25/08', value: '>10mm' },
         { category: '26/08', value: '>10mm' },
         { category: '27/08', value: '>10mm' },
         { category: '28/08', value: '>10mm' },
@@ -141,6 +171,11 @@ export const fakeHistory3 = () => {
     {
       name: 'Seção 1',
       data: [
+        { category: '21/08', value: '<8mm' },
+        { category: '22/08', value: '<8mm' },
+        { category: '23/08', value: '<8mm' },
+        { category: '24/08', value: '<8mm' },
+        { category: '25/08', value: '<8mm' },
         { category: '26/08', value: '<8mm' },
         { category: '27/08', value: '<8mm' },
         { category: '28/08', value: '<8mm' },
@@ -161,6 +196,11 @@ export const fakeHistory3 = () => {
     {
       name: 'Seção 2',
       data: [
+        { category: '21/08', value: '<8mm' },
+        { category: '22/08', value: '<8mm' },
+        { category: '23/08', value: '<8mm' },
+        { category: '24/08', value: '<8mm' },
+        { category: '25/08', value: '<8mm' },
         { category: '26/08', value: '<8mm' },
         { category: '27/08', value: '<8mm' },
         { category: '28/08', value: '<8mm' },
@@ -181,6 +221,11 @@ export const fakeHistory3 = () => {
     {
       name: 'Seção 3',
       data: [
+        { category: '21/08', value: '<8mm' },
+        { category: '22/08', value: '<8mm' },
+        { category: '23/08', value: '<8mm' },
+        { category: '24/08', value: '<8mm' },
+        { category: '25/08', value: '<8mm' },
         { category: '26/08', value: '<8mm' },
         { category: '27/08', value: '<8mm' },
         { category: '28/08', value: '<8mm' },
