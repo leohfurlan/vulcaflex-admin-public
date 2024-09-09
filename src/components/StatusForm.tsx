@@ -55,7 +55,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                   <SelectGroup>
                     <SelectLabel>Cliente</SelectLabel>
                     <SelectItem value="vale">Vale</SelectItem>
-                    <SelectItem value="petrobras">Petrobras</SelectItem>
+                    {/* <SelectItem value="petrobras">Petrobras</SelectItem> */}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -83,12 +83,12 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                   <SelectGroup>
                     <SelectLabel>Unidade</SelectLabel>
                     <SelectItem value="s11d">S11D</SelectItem>
-                    <SelectItem value="porto_de_tubarao">
+                    {/* <SelectItem value="porto_de_tubarao">
                       Porto de Tubarão
                     </SelectItem>
                     <SelectItem value="mina_de_fabrica">
                       Mina de Fábrica
-                    </SelectItem>
+                    </SelectItem> */}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -116,10 +116,10 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                   <SelectGroup>
                     <SelectLabel>Processo</SelectLabel>
                     <SelectItem value="britagem">Britagem</SelectItem>
-                    <SelectItem value="peneiramento">Peneiramento</SelectItem>
+                    {/* <SelectItem value="peneiramento">Peneiramento</SelectItem>
                     <SelectItem value="patio_estocagem">
                       Pátio Estocagem
-                    </SelectItem>
+                    </SelectItem> */}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -147,7 +147,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                   <SelectGroup>
                     <SelectLabel>Transportador</SelectLabel>
                     <SelectItem value="0001">Transportador 0001</SelectItem>
-                    <SelectItem value="0002">Transportador 0002</SelectItem>
+                    {/* <SelectItem value="0002">Transportador 0002</SelectItem> */}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -183,7 +183,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
             </FormItem>
           )}
         />
-        <Button className="bg-orange-500 text-white hover:bg-orange-400">
+        <Button className="bg-orange-500 text-white hover:bg-orange-400 w-full max-w-[180px] md:w-fit">
           Monitorar
         </Button>
       </form>

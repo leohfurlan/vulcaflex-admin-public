@@ -22,7 +22,7 @@ export function BarrelPlate({ plate, onClick, chosenPlate }: BarrelPlateProps) {
       onClick={onClick}
     >
       <span
-        className={`self-center font-bold ${plateCodeColor(
+        className={`self-center font-bold text-xs md:text-xl ${plateCodeColor(
           thinest,
           removeStyle,
         )}`}
@@ -30,7 +30,7 @@ export function BarrelPlate({ plate, onClick, chosenPlate }: BarrelPlateProps) {
         {plate.codigo}
       </span>
       <div
-        className={`border-2 ${sectionColor(
+        className={`flex justify-center items-center border-2 text-xs md:text-lg ${sectionColor(
           secao1,
           removeStyle,
         )} p-1 rounded-lg text-center`}
@@ -40,7 +40,7 @@ export function BarrelPlate({ plate, onClick, chosenPlate }: BarrelPlateProps) {
         </span>
       </div>
       <div
-        className={`border-2 ${sectionColor(
+        className={`flex justify-center items-center border-2 text-xs md:text-lg ${sectionColor(
           secao2,
           removeStyle,
         )} p-1 rounded-lg text-center`}
@@ -50,7 +50,7 @@ export function BarrelPlate({ plate, onClick, chosenPlate }: BarrelPlateProps) {
         </span>
       </div>
       <div
-        className={`border-2 ${sectionColor(
+        className={`flex justify-center items-center border-2 text-xs md:text-lg ${sectionColor(
           secao3,
           removeStyle,
         )} p-1 rounded-lg text-center`}
