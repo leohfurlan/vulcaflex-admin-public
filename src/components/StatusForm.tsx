@@ -11,7 +11,7 @@ import {
 import { useForm } from 'react-hook-form'
 import { Button } from './ui/button'
 
-interface IFormValues {
+export interface IFormValues {
   client: string
   unity: string
   process: string
@@ -183,7 +183,10 @@ export function StatusForm({ handleClick }: StatusFormProps) {
             </FormItem>
           )}
         />
-        <Button className="bg-orange-500 text-white hover:bg-orange-400 w-full max-w-[180px] md:w-fit">
+        <Button
+          className="bg-orange-500 text-white hover:bg-orange-400 w-full max-w-[180px] md:w-fit"
+          disabled={!form.getValues('barrel')}
+        >
           Monitorar
         </Button>
       </form>

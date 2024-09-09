@@ -1,13 +1,27 @@
 import { Barrel } from '@/components/Barrel'
-import { StatusForm } from '@/components/StatusForm'
+import { IFormValues, StatusForm } from '@/components/StatusForm'
 import { Layout } from '@/components/template/Layout'
-import { fakeBarrel } from '@/data/fakeBarrel'
+import { fakeBarrel1, fakeBarrel2, fakeBarrel3 } from '@/data/fakeBarrel'
+import { IBarrelDetailsResponse } from '@/models/Barrel'
+import { useState } from 'react'
 
 export default function StatusPage() {
-  const barrel = fakeBarrel
+  const [currentBarrel, setCurrentBarrel] = useState<IBarrelDetailsResponse>()
 
-  const handleClick = (data: any) => {
-    console.log(data)
+  const handleClick = (data: IFormValues) => {
+    if (data && data.barrel) {
+      if (data.barrel === '0001') {
+        setCurrentBarrel(fakeBarrel1)
+      }
+
+      if (data.barrel === '0002') {
+        setCurrentBarrel(fakeBarrel2)
+      }
+
+      if (data.barrel === '0003') {
+        setCurrentBarrel(fakeBarrel3)
+      }
+    }
   }
 
   return (
@@ -17,7 +31,7 @@ export default function StatusPage() {
           <div className="w-full flex flex-wrap gap-2 mb-4">
             <StatusForm handleClick={handleClick} />
           </div>
-          <Barrel barrel={barrel} />
+          {currentBarrel ? <Barrel barrel={currentBarrel} /> : null}
         </section>
       </Layout>
     </div>

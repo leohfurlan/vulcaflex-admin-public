@@ -1,0 +1,202 @@
+export type SeriesType = {
+  name: string
+  data: { category: string; value: string }[]
+}[]
+
+// Tambor 0001
+export const fakeHistory1 = () => {
+  return [
+    {
+      name: 'Seção 1',
+      data: [
+        { category: '26/08', value: '>10mm' },
+        { category: '27/08', value: '>10mm' },
+        { category: '28/08', value: '>10mm' },
+        { category: '29/08', value: '>10mm' },
+        { category: '30/08', value: '>10mm' },
+        { category: '31/08', value: '>10mm' },
+        { category: '01/10', value: '>10mm' },
+        { category: '02/10', value: '>10mm' },
+        { category: '03/10', value: '>10mm' },
+        { category: '04/10', value: '>10mm' },
+        { category: '05/10', value: '>10mm' },
+        { category: '06/10', value: '>10mm' },
+        { category: '07/10', value: '>10mm' },
+        { category: '08/10', value: '>10mm' },
+        { category: '09/10', value: '>10mm' },
+      ],
+    },
+    {
+      name: 'Seção 2',
+      data: [
+        { category: '26/08', value: '>10mm' },
+        { category: '27/08', value: '>10mm' },
+        { category: '28/08', value: '>10mm' },
+        { category: '29/08', value: '>10mm' },
+        { category: '30/08', value: '>10mm' },
+        { category: '31/08', value: '>10mm' },
+        { category: '01/10', value: '>10mm' },
+        { category: '02/10', value: '>10mm' },
+        { category: '03/10', value: '>10mm' },
+        { category: '04/10', value: '>10mm' },
+        { category: '05/10', value: '>10mm' },
+        { category: '06/10', value: '>10mm' },
+        { category: '07/10', value: '>10mm' },
+        { category: '08/10', value: '>10mm' },
+        { category: '09/10', value: '>10mm' },
+      ],
+    },
+    {
+      name: 'Seção 3',
+      data: [
+        { category: '26/08', value: '>10mm' },
+        { category: '27/08', value: '>10mm' },
+        { category: '28/08', value: '>10mm' },
+        { category: '29/08', value: '>10mm' },
+        { category: '30/08', value: '>10mm' },
+        { category: '31/08', value: '>10mm' },
+        { category: '01/10', value: '>10mm' },
+        { category: '02/10', value: '>10mm' },
+        { category: '03/10', value: '>10mm' },
+        { category: '04/10', value: '>10mm' },
+        { category: '05/10', value: '>10mm' },
+        { category: '06/10', value: '>10mm' },
+        { category: '07/10', value: '>10mm' },
+        { category: '08/10', value: '>10mm' },
+        { category: '09/10', value: '>10mm' },
+      ],
+    },
+  ]
+}
+
+// Tambor 0002
+export const fakeHistory2 = () => {
+  return [
+    {
+      name: 'Seção 1',
+      data: [
+        { category: '26/08', value: '>10mm' },
+        { category: '27/08', value: '>10mm' },
+        { category: '28/08', value: '>10mm' },
+        { category: '29/08', value: '>10mm' },
+        { category: '30/08', value: '>10mm' },
+        { category: '31/08', value: '>10mm' },
+        { category: '01/10', value: '>10mm' },
+        { category: '02/10', value: '>10mm' },
+        { category: '03/10', value: '>10mm' },
+        { category: '04/10', value: '>10mm' },
+        { category: '05/10', value: '>10mm' },
+        { category: '06/10', value: '<10mm' },
+        { category: '07/10', value: '<10mm' },
+        { category: '08/10', value: '<10mm' },
+        { category: '09/10', value: '<10mm' },
+      ],
+    },
+    {
+      name: 'Seção 2',
+      data: [
+        { category: '26/08', value: '>10mm' },
+        { category: '27/08', value: '>10mm' },
+        { category: '28/08', value: '>10mm' },
+        { category: '29/08', value: '>10mm' },
+        { category: '30/08', value: '>10mm' },
+        { category: '31/08', value: '>10mm' },
+        { category: '01/10', value: '>10mm' },
+        { category: '02/10', value: '>10mm' },
+        { category: '03/10', value: '>10mm' },
+        { category: '04/10', value: '>10mm' },
+        { category: '05/10', value: '>10mm' },
+        { category: '06/10', value: '>10mm' },
+        { category: '07/10', value: '<10mm' },
+        { category: '08/10', value: '<10mm' },
+        { category: '09/10', value: '<10mm' },
+      ],
+    },
+    {
+      name: 'Seção 3',
+      data: [
+        { category: '26/08', value: '>10mm' },
+        { category: '27/08', value: '>10mm' },
+        { category: '28/08', value: '>10mm' },
+        { category: '29/08', value: '>10mm' },
+        { category: '30/08', value: '>10mm' },
+        { category: '31/08', value: '>10mm' },
+        { category: '01/10', value: '>10mm' },
+        { category: '02/10', value: '>10mm' },
+        { category: '03/10', value: '>10mm' },
+        { category: '04/10', value: '>10mm' },
+        { category: '05/10', value: '>10mm' },
+        { category: '06/10', value: '>10mm' },
+        { category: '07/10', value: '>10mm' },
+        { category: '08/10', value: '<10mm' },
+        { category: '09/10', value: '<10mm' },
+      ],
+    },
+  ]
+}
+
+// Tambor 0003
+export const fakeHistory3 = () => {
+  return [
+    {
+      name: 'Seção 1',
+      data: [
+        { category: '26/08', value: '<8mm' },
+        { category: '27/08', value: '<8mm' },
+        { category: '28/08', value: '<8mm' },
+        { category: '29/08', value: '<8mm' },
+        { category: '30/08', value: '<8mm' },
+        { category: '31/08', value: '<8mm' },
+        { category: '01/10', value: '<8mm' },
+        { category: '02/10', value: '<8mm' },
+        { category: '03/10', value: '<8mm' },
+        { category: '04/10', value: '<8mm' },
+        { category: '05/10', value: '<8mm' },
+        { category: '06/10', value: '<5mm' },
+        { category: '07/10', value: '<5mm' },
+        { category: '08/10', value: '<5mm' },
+        { category: '09/10', value: '<5mm' },
+      ],
+    },
+    {
+      name: 'Seção 2',
+      data: [
+        { category: '26/08', value: '<8mm' },
+        { category: '27/08', value: '<8mm' },
+        { category: '28/08', value: '<8mm' },
+        { category: '29/08', value: '<8mm' },
+        { category: '30/08', value: '<8mm' },
+        { category: '31/08', value: '<8mm' },
+        { category: '01/10', value: '<8mm' },
+        { category: '02/10', value: '<8mm' },
+        { category: '03/10', value: '<8mm' },
+        { category: '04/10', value: '<8mm' },
+        { category: '05/10', value: '<8mm' },
+        { category: '06/10', value: '<8mm' },
+        { category: '07/10', value: '<5mm' },
+        { category: '08/10', value: '<5mm' },
+        { category: '09/10', value: '<5mm' },
+      ],
+    },
+    {
+      name: 'Seção 3',
+      data: [
+        { category: '26/08', value: '<8mm' },
+        { category: '27/08', value: '<8mm' },
+        { category: '28/08', value: '<8mm' },
+        { category: '29/08', value: '<8mm' },
+        { category: '30/08', value: '<8mm' },
+        { category: '31/08', value: '<8mm' },
+        { category: '01/10', value: '<8mm' },
+        { category: '02/10', value: '<8mm' },
+        { category: '03/10', value: '<8mm' },
+        { category: '04/10', value: '<8mm' },
+        { category: '05/10', value: '<8mm' },
+        { category: '06/10', value: '<8mm' },
+        { category: '07/10', value: '<8mm' },
+        { category: '08/10', value: '<5mm' },
+        { category: '09/10', value: '<5mm' },
+      ],
+    },
+  ]
+}

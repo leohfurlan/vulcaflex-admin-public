@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { IBarrelDetailsResponse } from '@/models/Barrel'
 import { BarrelPlate } from './BarrelPlate'
 import { EMPTY } from '@/constants'
+import { Button } from './ui/button'
+import { useRouter } from 'next/router'
 
 interface BarrelProps {
   barrel: IBarrelDetailsResponse
 }
 
 export function Barrel({ barrel }: BarrelProps) {
+  const router = useRouter()
   const [chosenPlate, setChosenPlate] = useState<string>(EMPTY)
 
   const handleSelectPlate = (code: string) => {
@@ -36,6 +39,15 @@ export function Barrel({ barrel }: BarrelProps) {
           />
         ))}
       </div>
+      <Button
+        className="bg-orange-500 text-white hover:bg-orange-400 w-full md:w-fit mt-3"
+        disabled={chosenPlate === EMPTY}
+        onClick={() => router.push(`/history?plate=${chosenPlate}`)}
+      >
+        {chosenPlate !== EMPTY
+          ? `Monitorar Placa ${chosenPlate}`
+          : 'Selecione uma Placa'}
+      </Button>
     </div>
   )
 }

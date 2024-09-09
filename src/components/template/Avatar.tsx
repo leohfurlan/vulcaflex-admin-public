@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export function Avatar() {
   return (
-    <Link href="/profile">
+    <Link href="/">
       <img
         src="/images/avatar.svg"
         alt="User Avatar"
