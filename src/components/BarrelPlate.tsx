@@ -6,15 +6,18 @@ import { plateCodeColor, sectionColor, textColor } from '@/utils/plateStyles'
 interface BarrelPlateProps {
   plate: IPlate
   onClick: () => void
-  isChosen: boolean
-  chosenPlate: string
+  selectedPlate: string
 }
 
-export function BarrelPlate({ plate, onClick, chosenPlate }: BarrelPlateProps) {
+export function BarrelPlate({
+  plate,
+  onClick,
+  selectedPlate,
+}: BarrelPlateProps) {
   const thinest = Object.values(plate.secoes).sort((a, b) => a - b)[0]
   const { secao1, secao2, secao3 } = plate.secoes
-  const removeStyle = chosenPlate !== EMPTY && chosenPlate !== plate.codigo
-  const thickBorder = chosenPlate === plate.codigo ? 'border-2' : 'border'
+  const removeStyle = selectedPlate !== EMPTY && selectedPlate !== plate.codigo
+  const thickBorder = selectedPlate === plate.codigo ? 'border-2' : 'border'
 
   return (
     <div

@@ -12,11 +12,14 @@ interface ILocation {
   longitude: number
 }
 
-export interface IBarrelDetailsResponse {
-  TAG: string
+export interface IBarrelDetail {
   localizacao: ILocation
   dataInstalacao: string
   horasTrabalhadas: number
   responsavelInstalacao: string
-  placas: IPlate[]
+  placas: IPlate
+}
+
+export interface IBarrelDetailResponse {
+  detalhes: IBarrelDetail[]
 }

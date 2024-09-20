@@ -1,20 +1,22 @@
 import { useState } from 'react'
-import { IBarrelDetailsResponse } from '@/models/Barrel'
+import { IBarrelDetailResponse, IPlate } from '@/models/Barrel'
 import { BarrelPlate } from './BarrelPlate'
 import { EMPTY } from '@/constants'
 import { Button } from './ui/button'
 import { useRouter } from 'next/router'
 
 interface BarrelProps {
-  barrel: IBarrelDetailsResponse
+  data: IBarrelDetailResponse
 }
 
-export function Barrel({ barrel }: BarrelProps) {
+export function Barrel({ data }: BarrelProps) {
   const router = useRouter()
-  const [chosenPlate, setChosenPlate] = useState<string>(EMPTY)
+  const [selectedPlate, setSelectedPlate] = useState<string>(EMPTY)
 
   const handleSelectPlate = (code: string) => {
-    return code === chosenPlate ? setChosenPlate(EMPTY) : setChosenPlate(code)
+    return code === selectedPlate
+      ? setSelectedPlate(EMPTY)
+      : setSelectedPlate(code)
   }
 
   return (
@@ -29,23 +31,22 @@ export function Barrel({ barrel }: BarrelProps) {
       </div>
       <div>
         {/** upper div for scrolling when there are more than 3 barrels */}
-        {barrel.placas.map((plate) => (
+        {data?.detalhes.map((barrelPlate, idx) => (
           <BarrelPlate
-            key={plate.codigo}
-            plate={plate}
-            onClick={() => handleSelectPlate(plate.codigo)}
-            isChosen={plate.codigo === chosenPlate}
-            chosenPlate={chosenPlate}
+            key={idx}
+            plate={barrelPlate.placas}
+            onClick={() => handleSelectPlate(barrelPlate.placas.codigo)}
+            selectedPlate={selectedPlate}
           />
         ))}
       </div>
       <Button
         className="bg-orange-500 text-white hover:bg-orange-400 w-full md:w-fit mt-3"
-        disabled={chosenPlate === EMPTY}
-        onClick={() => router.push(`/history?plate=${chosenPlate}`)}
+        disabled={selectedPlate === EMPTY}
+        onClick={() => router.push(`/history?plate=${selectedPlate}`)}
       >
-        {chosenPlate !== EMPTY
-          ? `Monitorar Placa ${chosenPlate}`
+        {selectedPlate !== EMPTY
+          ? `Monitorar Placa ${selectedPlate}`
           : 'Selecione uma Placa'}
       </Button>
     </div>
