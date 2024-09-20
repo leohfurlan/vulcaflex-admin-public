@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
 import { getBarrelSpecification } from '@/services/getBarrelSpecification'
+import { useLoaderQuery } from './useLoaderQuery'
 
 export function useGetBarrelSpecification(
   enabled: boolean,
@@ -7,7 +7,7 @@ export function useGetBarrelSpecification(
   process?: string,
   transporter?: string,
 ) {
-  return useQuery({
+  return useLoaderQuery({
     queryKey: ['useGetBarrelSpecification', unity, process, transporter],
     enabled,
     queryFn: () => getBarrelSpecification(unity, process, transporter),

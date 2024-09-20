@@ -55,6 +55,14 @@ export function StatusForm({ handleClick }: StatusFormProps) {
     router.push('/error')
   }
 
+  const onChange = (key: string, val: string) => {
+    if (formData[key as keyof IFormValues] === val) {
+      return
+    }
+
+    setFormData((prev) => ({ ...prev, [key]: val }))
+  }
+
   return (
     <Form {...form}>
       <form
@@ -71,7 +79,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                 value={field.value}
                 onValueChange={(val) => {
                   field.onChange(val)
-                  setFormData((prev) => ({ ...prev, unity: val }))
+                  onChange('unity', val)
                 }}
               >
                 <FormControl>
@@ -107,7 +115,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                 value={field.value}
                 onValueChange={(val) => {
                   field.onChange(val)
-                  setFormData((prev) => ({ ...prev, process: val }))
+                  onChange('process', val)
                 }}
               >
                 <FormControl>
@@ -143,7 +151,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                 value={field.value}
                 onValueChange={(val) => {
                   field.onChange(val)
-                  setFormData((prev) => ({ ...prev, transporter: val }))
+                  onChange('transporter', val)
                 }}
               >
                 <FormControl>
@@ -179,7 +187,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                 value={field.value}
                 onValueChange={(val) => {
                   field.onChange(val)
-                  setFormData((prev) => ({ ...prev, barrel: val }))
+                  onChange('barrel', val)
                 }}
               >
                 <FormControl>

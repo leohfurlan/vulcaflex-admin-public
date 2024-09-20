@@ -35,5 +35,8 @@ export function FormContextProvider({ children }: FormContextProviderProps) {
 
 export function useFormContext() {
   const ctx = useContext(FormContext)
+  if (!ctx) {
+    throw new Error('useFormContext must be used within a FormContextProvider')
+  }
   return ctx
 }

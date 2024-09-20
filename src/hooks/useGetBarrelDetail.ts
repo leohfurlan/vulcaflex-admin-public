@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
 import { getBarrelDetail } from '@/services/getBarrelDetail'
 import { IFormValues } from '@/components/StatusForm'
+import { useLoaderQuery } from './useLoaderQuery'
 
 export function useGetBarrelDetail(formState: IFormValues, enabled: boolean) {
   const { unity, process, transporter, barrel } = formState
@@ -11,7 +11,7 @@ export function useGetBarrelDetail(formState: IFormValues, enabled: boolean) {
   params.append('transportadorCorreia', transporter!)
   params.append('tamborId', barrel!)
 
-  return useQuery({
+  return useLoaderQuery({
     queryKey: ['useGetBarrelDetail', unity, process, transporter, barrel],
     queryFn: () => getBarrelDetail(params),
     enabled,
