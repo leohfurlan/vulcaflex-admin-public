@@ -19,7 +19,12 @@ interface FormContextProps {
 const FormContext = createContext({} as FormContextProps)
 
 export function FormContextProvider({ children }: FormContextProviderProps) {
-  const [formData, setFormData] = useState<IFormValues>({} as IFormValues)
+  const [formData, setFormData] = useState<IFormValues>({
+    unity: undefined,
+    barrel: undefined,
+    process: undefined,
+    transporter: undefined,
+  } as IFormValues)
 
   return (
     <FormContext.Provider value={{ formData, setFormData }}>

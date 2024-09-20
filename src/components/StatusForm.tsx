@@ -11,13 +11,14 @@ import {
 import { useForm } from 'react-hook-form'
 import { Button } from './ui/button'
 import { useFormContext } from '@/contexts/FormContext'
+import { useGetBarrelSpecification } from '@/hooks/useGetBarrelSpecification'
+import { useRouter } from 'next/router'
 
 export interface IFormValues {
-  client: string
-  unity: string
-  process: string
-  transporter: string
-  barrel: string
+  unity: string | undefined
+  process: string | undefined
+  transporter: string | undefined
+  barrel: string | undefined
 }
 
 interface StatusFormProps {
@@ -25,11 +26,33 @@ interface StatusFormProps {
 }
 
 export function StatusForm({ handleClick }: StatusFormProps) {
-  const { formData } = useFormContext()
+  const router = useRouter()
+  const { formData, setFormData } = useFormContext()
   const form = useForm<IFormValues>({ defaultValues: formData })
 
-  const handleChange = (cb: (s: string) => void, val: string) => {
-    cb(val)
+  const { data: dataUnity, isError: isErrorUnity } =
+    useGetBarrelSpecification(true)
+  const { data: dataProcess, isError: isErrorProcess } =
+    useGetBarrelSpecification(!!formData.unity, formData.unity)
+  const { data: dataTransporter, isError: isErrorTransporter } =
+    useGetBarrelSpecification(
+      !!formData.process,
+      formData.unity,
+      formData.process,
+    )
+  const { data: dataBarrel, isError: isErrorBarrel } =
+    useGetBarrelSpecification(
+      !!formData.transporter,
+      formData.unity,
+      formData.process,
+      formData.transporter,
+    )
+
+  const hasError =
+    isErrorUnity || isErrorProcess || isErrorTransporter || isErrorBarrel
+
+  if (hasError) {
+    router.push('/error')
   }
 
   return (
@@ -38,33 +61,6 @@ export function StatusForm({ handleClick }: StatusFormProps) {
         className="flex flex-wrap gap-2"
         onSubmit={form.handleSubmit((data) => handleClick(data))}
       >
-        {/** Cliente */}
-        <FormField
-          control={form.control}
-          name="client"
-          render={({ field }) => (
-            <FormItem>
-              <Select
-                onValueChange={(val) => handleChange(field.onChange, val)}
-                defaultValue={field.value}
-              >
-                <FormControl>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Cliente" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Cliente</SelectLabel>
-                    <SelectItem value="vale">Vale</SelectItem>
-                    {/* <SelectItem value="petrobras">Petrobras</SelectItem> */}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </FormItem>
-          )}
-        />
-
         {/** Unidade */}
         <FormField
           control={form.control}
@@ -72,25 +68,27 @@ export function StatusForm({ handleClick }: StatusFormProps) {
           render={({ field }) => (
             <FormItem>
               <Select
-                onValueChange={(val) => handleChange(field.onChange, val)}
-                defaultValue={field.value}
-                disabled={!form.getValues('client')}
+                value={field.value}
+                onValueChange={(val) => {
+                  field.onChange(val)
+                  setFormData((prev) => ({ ...prev, unity: val }))
+                }}
               >
                 <FormControl>
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Unidade" />
+                    <SelectValue placeholder="Unidades">
+                      {field.value}
+                    </SelectValue>
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Unidade</SelectLabel>
-                    <SelectItem value="s11d">S11D</SelectItem>
-                    {/* <SelectItem value="porto_de_tubarao">
-                      Porto de Tubarão
-                    </SelectItem>
-                    <SelectItem value="mina_de_fabrica">
-                      Mina de Fábrica
-                    </SelectItem> */}
+                    <SelectLabel>{dataUnity?.especificacao}</SelectLabel>
+                    {dataUnity?.lista.map((item) => (
+                      <SelectItem key={item} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -105,23 +103,28 @@ export function StatusForm({ handleClick }: StatusFormProps) {
           render={({ field }) => (
             <FormItem>
               <Select
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                disabled={!form.getValues('unity')}
+                disabled={!formData.unity}
+                value={field.value}
+                onValueChange={(val) => {
+                  field.onChange(val)
+                  setFormData((prev) => ({ ...prev, process: val }))
+                }}
               >
                 <FormControl>
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Processo" />
+                    <SelectValue placeholder="Processo">
+                      {field.value}
+                    </SelectValue>
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Processo</SelectLabel>
-                    <SelectItem value="britagem">Britagem</SelectItem>
-                    {/* <SelectItem value="peneiramento">Peneiramento</SelectItem>
-                    <SelectItem value="patio_estocagem">
-                      Pátio Estocagem
-                    </SelectItem> */}
+                    {dataProcess?.lista.map((item) => (
+                      <SelectItem key={item} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -136,20 +139,28 @@ export function StatusForm({ handleClick }: StatusFormProps) {
           render={({ field }) => (
             <FormItem>
               <Select
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                disabled={!form.getValues('process')}
+                disabled={!formData.process}
+                value={field.value}
+                onValueChange={(val) => {
+                  field.onChange(val)
+                  setFormData((prev) => ({ ...prev, transporter: val }))
+                }}
               >
                 <FormControl>
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Transportador" />
+                    <SelectValue placeholder="Transportador">
+                      {field.value}
+                    </SelectValue>
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Transportador</SelectLabel>
-                    <SelectItem value="0001">Transportador 0001</SelectItem>
-                    {/* <SelectItem value="0002">Transportador 0002</SelectItem> */}
+                    {dataTransporter?.lista.map((item) => (
+                      <SelectItem key={item} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -164,21 +175,28 @@ export function StatusForm({ handleClick }: StatusFormProps) {
           render={({ field }) => (
             <FormItem>
               <Select
-                onValueChange={field.onChange}
-                defaultValue={field.value}
-                disabled={!form.getValues('transporter')}
+                disabled={!formData.transporter}
+                value={field.value}
+                onValueChange={(val) => {
+                  field.onChange(val)
+                  setFormData((prev) => ({ ...prev, barrel: val }))
+                }}
               >
                 <FormControl>
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Tambor" />
+                    <SelectValue placeholder="Tambor">
+                      {field.value}
+                    </SelectValue>
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Tambor</SelectLabel>
-                    <SelectItem value="0001">Tambor 0001</SelectItem>
-                    <SelectItem value="0002">Tambor 0002</SelectItem>
-                    <SelectItem value="0003">Tambor 0003</SelectItem>
+                    {dataBarrel?.lista.map((item) => (
+                      <SelectItem key={item} value={item}>
+                        {item}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
