@@ -8,7 +8,7 @@ export interface IPlate {
 }
 
 interface ILocation {
-  latidude: number
+  latitude: number
   longitude: number
 }
 
