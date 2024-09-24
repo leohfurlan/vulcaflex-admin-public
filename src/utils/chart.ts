@@ -1,4 +1,5 @@
 import { IBarrelDetailResponse } from '@/models/Barrel'
+import { chartColor } from './chartColor'
 
 export const tickMap = {
   '-1': 1,
@@ -33,22 +34,19 @@ export const mapBarrelChart = (data: IBarrelDetailResponse | undefined) => {
 
   return [
     {
-      name: 'Seção 1',
-      data: section1
-        .sort((a, b) => b - a)
-        .map((el, index) => ({ value: tickMap[el], index })),
+      key: 'Seção 1',
+      value: tickMap[Math.min(...section1)],
+      color: chartColor(Math.min(...section1)),
     },
     {
-      name: 'Seção 2',
-      data: section2
-        .sort((a, b) => b - a)
-        .map((el, index) => ({ value: tickMap[el], index })),
+      key: 'Seção 2',
+      value: tickMap[Math.min(...section2)],
+      color: chartColor(Math.min(...section2)),
     },
     {
-      name: 'Seção 3',
-      data: section3
-        .sort((a, b) => b - a)
-        .map((el, index) => ({ value: tickMap[el], index })),
+      key: 'Seção 3',
+      value: tickMap[Math.min(...section3)],
+      color: chartColor(Math.min(...section3)),
     },
   ]
 }

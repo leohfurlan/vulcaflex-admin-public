@@ -5,24 +5,22 @@ import { Layout } from '@/components/template/Layout'
 import { useFormContext } from '@/contexts/FormContext'
 import { useGetBarrelDetail } from '@/hooks/useGetBarrelDetail'
 import {
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
+  Bar,
+  BarChart,
+  Cell,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts'
 import { inverseTickMap, mapBarrelChart } from '@/utils/chart'
-import { colors } from '@/constants'
 
 export default function StatusPage() {
   const [enabled, setEnabled] = useState(false)
   const { formData } = useFormContext()
   const { data } = useGetBarrelDetail(formData, enabled)
 
-  const series = mapBarrelChart(data)
+  const dataBar = mapBarrelChart(data)
 
   return (
     <div>
@@ -32,37 +30,35 @@ export default function StatusPage() {
             <StatusForm handleClick={() => setEnabled(true)} />
           </div>
           <div className="flex gap-8">
-            <div className="flex-1">{data ? <Barrel data={data} /> : null}</div>
-            <div className="hidden lg:flex flex-1">
+            <div className="flex-1 max-w-[600px]">
+              {data ? <Barrel data={data} /> : null}
+            </div>
+            <div className="hidden lg:flex flex-1 max-w-[600px]">
               {data ? (
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart width={500}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis
-                      dataKey="index"
-                      type="category"
-                      allowDuplicatedCategory={false}
-                      tickFormatter={(tick) => tick + 1}
+                <ResponsiveContainer width="100%" minWidth={300} height={300}>
+                  <BarChart width={300} height={40} data={dataBar}>
+                    <XAxis dataKey="key" />
+                    <Bar dataKey="value">
+                      {dataBar?.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Bar>
+                    <Tooltip
+                      formatter={(val: number) => [
+                        inverseTickMap[val],
+                        'Valor',
+                      ]}
+                      contentStyle={{ backgroundColor: '#FFF' }}
+                      cursor={{ fill: 'transparent' }}
                     />
                     <YAxis
                       dataKey="value"
                       ticks={[1, 2, 3, 4, 5]}
                       tickFormatter={(tick) => inverseTickMap[tick]}
-                      domain={[0, 5]}
+                      domain={[0.5, 5]}
+                      padding={{ top: 10 }}
                     />
-                    <Tooltip formatter={(val: number) => inverseTickMap[val]} />
-                    <Legend />
-                    {series?.map((s, idx) => (
-                      <Line
-                        dataKey="value"
-                        data={s.data}
-                        name={s.name}
-                        key={s.name}
-                        stroke={colors[idx]}
-                        type="monotone"
-                      />
-                    ))}
-                  </LineChart>
+                  </BarChart>
                 </ResponsiveContainer>
               ) : null}
             </div>
