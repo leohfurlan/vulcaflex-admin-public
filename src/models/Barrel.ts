@@ -17,9 +17,9 @@ export interface IBarrelDetail {
   dataInstalacao: string
   horasTrabalhadas: number
   responsavelInstalacao: string
-  placas: IPlate
+  placas: IPlate[]
 }
 
 export interface IBarrelDetailResponse {
-  detalhes: IBarrelDetail[]
+  detalhes: IBarrelDetail
 }

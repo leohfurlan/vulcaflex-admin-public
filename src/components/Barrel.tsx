@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { IBarrelDetailResponse, IPlate } from '@/models/Barrel'
+import { useRouter } from 'next/router'
+import { IBarrelDetailResponse } from '@/models/Barrel'
 import { BarrelPlate } from './BarrelPlate'
 import { EMPTY } from '@/constants'
 import { Button } from './ui/button'
-import { useRouter } from 'next/router'
 
 interface BarrelProps {
   data: IBarrelDetailResponse
@@ -25,25 +25,27 @@ export function Barrel({ data }: BarrelProps) {
       <div className="absolute h-4 w-4 bg-gray-500 top-7 -left-5 rounded-l-sm"></div>
       <div className="grid grid-cols-4 gap-3 px-3">
         <span className="text-xs md:text-lg">Placa</span>
-        <span className="text-xs md:text-lg text-center">Seção 1</span>
-        <span className="text-xs md:text-lg text-center">Seção 2</span>
-        <span className="text-xs md:text-lg text-center">Seção 3</span>
+        {data?.detalhes.placas.map((_, idx) => (
+          <span className="text-xs md:text-lg text-center">
+            Seção {idx + 1}
+          </span>
+        ))}
       </div>
       <div>
         {/** upper div for scrolling when there are more than 3 barrels */}
-        {data?.detalhes.map((barrelPlate, idx) => (
+        {data?.detalhes.placas.map((barrelPlate, idx) => (
           <BarrelPlate
             key={idx}
-            plate={barrelPlate.placas}
-            onClick={() => handleSelectPlate(barrelPlate.placas.codigo)}
+            plate={barrelPlate}
+            onClick={() => handleSelectPlate(barrelPlate.codigo)}
             selectedPlate={selectedPlate}
           />
         ))}
       </div>
       <Button
-        className="bg-orange-500 text-white hover:bg-orange-400 w-full md:w-fit mt-3"
+        className="bg-orange-500 text-white hover:bg-orange-400 w-full mt-3"
         disabled={selectedPlate === EMPTY}
-        onClick={() => router.push(`/history?plate=${selectedPlate}`)}
+        onClick={() => router.push(`/history?plateId=${selectedPlate}`)}
       >
         {selectedPlate !== EMPTY
           ? `Monitorar Placa ${selectedPlate}`

@@ -26,10 +26,10 @@ export const mapBarrelChart = (data: IBarrelDetailResponse | undefined) => {
   const section2: number[] = []
   const section3: number[] = []
 
-  data.detalhes.forEach((plate) => {
-    section1.push(plate.placas.secoes.secao1)
-    section2.push(plate.placas.secoes.secao2)
-    section3.push(plate.placas.secoes.secao3)
+  data.detalhes.placas.forEach((plate) => {
+    section1.push(plate.secoes.secao1)
+    section2.push(plate.secoes.secao2)
+    section3.push(plate.secoes.secao3)
   })
 
   return [
