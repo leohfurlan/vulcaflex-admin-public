@@ -1,12 +1,13 @@
+import { DateRangePicker } from '@/components/DateRangePicker'
 import { Layout } from '@/components/template/Layout'
-import {
-  fakeHistory1,
-  fakeHistory2,
-  fakeHistory3,
-  SeriesType,
-} from '@/data/fakeHistory'
+import { colors } from '@/constants'
+import { useFormContext } from '@/contexts/FormContext'
+import { useFilterPlate } from '@/hooks/useFilterPlate'
+import { useGetBarrelHistory } from '@/hooks/useGetBarrelHistory'
+import { inverseTickMap } from '@/utils/chart'
+import { format } from 'date-fns'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   CartesianGrid,
   Legend,
@@ -20,82 +21,69 @@ import {
 
 export default function StatusPage() {
   const router = useRouter()
-  const { plate } = router.query
-  const [series, setSeries] = useState<SeriesType>([])
+  const { plateId } = router.query
+  const { formData } = useFormContext()
 
-  const colors = ['#8884d8', '#82ca9d', '#ff7300']
+  const [enabled, setEnabled] = useState(false)
+  const [startDate, setStartDate] = useState<string | undefined>(undefined)
+  const [endDate, setEndDate] = useState<string | undefined>(undefined)
 
-  useEffect(() => {
-    if (plate && Number(plate) >= 36 && Number(plate) <= 38) {
-      setSeries(fakeHistory1)
-    }
+  const { data } = useGetBarrelHistory(
+    formData,
+    startDate!,
+    endDate!,
+    !!startDate && !!endDate && enabled,
+  )
 
-    if (plate && Number(plate) >= 39 && Number(plate) <= 41) {
-      setSeries(fakeHistory2)
-    }
+  const handleClick = (
+    startDate: Date | undefined,
+    endDate: Date | undefined,
+  ) => {
+    setStartDate(format(startDate!, 'yyyy-MM-dd'))
+    setEndDate(format(endDate!, 'yyyy-MM-dd'))
+    setEnabled(true)
+  }
 
-    if (plate && Number(plate) >= 42 && Number(plate) <= 44) {
-      setSeries(fakeHistory3)
-    }
-  }, [plate])
-
-  const tickMap = {
-    erro: 1,
-    '<5mm': 2,
-    '<8mm': 3,
-    '<10mm': 4,
-    '>10mm': 5,
-  } as Record<string, number>
-
-  const inverseTickMap = {
-    1: 'erro',
-    2: '<5mm',
-    3: '<8mm',
-    4: '<10mm',
-    5: '>10mm',
-  } as Record<number, string>
-
-  const mappedSeries = series.map((s) => ({
-    ...s,
-    data: s.data.map((d) => ({
-      ...d,
-      value: tickMap[d.value],
-    })),
-  }))
+  const mappedSeries = useFilterPlate(data, plateId as string)
 
   return (
     <div>
       <Layout title="Histórico" subTitle="Informações de histórico da placa">
         <section className="mt-6 text-gray-700">
-          <h6 className="mb-4 font-bold">Histórico da Placa {plate}</h6>
-          <ResponsiveContainer width="100%" height={400}>
-            <LineChart width={500} height={400}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                dataKey="category"
-                type="category"
-                allowDuplicatedCategory={false}
-              />
-              <YAxis
-                dataKey="value"
-                ticks={Object.values(tickMap)}
-                tickFormatter={(tick) => inverseTickMap[tick]}
-                domain={[0, 5]}
-              />
-              <Tooltip formatter={(value: number) => inverseTickMap[value]} />
-              <Legend />
-              {mappedSeries.map((s, idx) => (
-                <Line
-                  dataKey="value"
-                  type="monotone"
-                  data={s.data}
-                  name={s.name}
-                  key={s.name}
-                  stroke={colors[idx]}
+          <h6 className="mb-4 font-bold">
+            Histórico da Placa {plateId}, Tambor: {formData.barrel}
+          </h6>
+          <DateRangePicker onClick={handleClick} />
+          {data ? (
+            <ResponsiveContainer width="100%" height={400}>
+              <LineChart width={500} height={400}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="key"
+                  type="category"
+                  allowDuplicatedCategory={false}
                 />
-              ))}
-            </LineChart>
-          </ResponsiveContainer>
+                <YAxis
+                  dataKey="value"
+                  ticks={[1, 2, 3, 4, 5]}
+                  tickFormatter={(tick) => inverseTickMap[tick]}
+                  domain={[0, 5]}
+                />
+                <Tooltip formatter={(value: number) => inverseTickMap[value]} />
+                <Legend />
+                {mappedSeries?.map((s, idx) => (
+                  <Line
+                    dataKey="value"
+                    type="monotone"
+                    data={s.data}
+                    name={s.name}
+                    key={s.name}
+                    stroke={colors[idx]}
+                  />
+                ))}
+              </LineChart>
+            </ResponsiveContainer>
+          ) : null}
         </section>
       </Layout>
     </div>
