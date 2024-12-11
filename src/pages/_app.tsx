@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { FormContextProvider } from '@/contexts/FormContext'
 import { LoaderProvider } from '@/contexts/LoaderContext'
 import { LoaderOverlay } from '@/components/LoaderOverlay'
+import { DashboardProvider } from '@/contexts/DashboardContext'
 
 const inter = Inter({ subsets: ['latin'] })
 const queryClient = new QueryClient()
@@ -14,15 +15,17 @@ export default function App({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <LoaderProvider>
         <FormContextProvider>
-          <>
-            <style jsx global>{`
-              html {
-                font-family: ${inter.style.fontFamily};
-              }
-            `}</style>
-            <LoaderOverlay />
-            <Component {...pageProps} />
-          </>
+          <DashboardProvider>
+            <>
+              <style jsx global>{`
+                html {
+                  font-family: ${inter.style.fontFamily};
+                }
+              `}</style>
+              <LoaderOverlay />
+              <Component {...pageProps} />
+            </>
+          </DashboardProvider>
         </FormContextProvider>
       </LoaderProvider>
     </QueryClientProvider>

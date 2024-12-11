@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import {
   Select,
@@ -9,16 +10,16 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useForm } from 'react-hook-form'
-import { Button } from './ui/button'
 import { useFormContext } from '@/contexts/FormContext'
-import { useGetBarrelSpecification } from '@/hooks/useGetBarrelSpecification'
 import { useRouter } from 'next/router'
+import { useDashboardData } from '@/hooks/useDashboardData'
 
 export interface IFormValues {
   unity: string | undefined
   process: string | undefined
   transporter: string | undefined
   barrel: string | undefined
+  plate: string | undefined
 }
 
 interface StatusFormProps {
@@ -30,26 +31,8 @@ export function StatusForm({ handleClick }: StatusFormProps) {
   const { formData, setFormData } = useFormContext()
   const form = useForm<IFormValues>({ defaultValues: formData })
 
-  const { data: dataUnity, isError: isErrorUnity } =
-    useGetBarrelSpecification(true)
-  const { data: dataProcess, isError: isErrorProcess } =
-    useGetBarrelSpecification(!!formData.unity, formData.unity)
-  const { data: dataTransporter, isError: isErrorTransporter } =
-    useGetBarrelSpecification(
-      !!formData.process,
-      formData.unity,
-      formData.process,
-    )
-  const { data: dataBarrel, isError: isErrorBarrel } =
-    useGetBarrelSpecification(
-      !!formData.transporter,
-      formData.unity,
-      formData.process,
-      formData.transporter,
-    )
-
-  const hasError =
-    isErrorUnity || isErrorProcess || isErrorTransporter || isErrorBarrel
+  const { dataBarrel, dataProcess, dataTransporter, dataUnity, hasError } =
+    useDashboardData()
 
   if (hasError) {
     router.push('/error')
@@ -63,10 +46,16 @@ export function StatusForm({ handleClick }: StatusFormProps) {
     setFormData((prev) => ({ ...prev, [key]: val }))
   }
 
+  useEffect(() => {
+    if (formData.barrel) {
+      handleClick(formData)
+    }
+  }, [formData.barrel])
+
   return (
     <Form {...form}>
       <form
-        className="flex flex-wrap gap-2"
+        className="grid grid-cols-2 grid-rows-2 gap-2"
         onSubmit={form.handleSubmit((data) => handleClick(data))}
       >
         {/** Unidade */}
@@ -82,8 +71,8 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                   onChange('unity', val)
                 }}
               >
-                <FormControl>
-                  <SelectTrigger className="w-[180px]">
+                <FormControl className="mx-auto">
+                  <SelectTrigger className="w-[150px]">
                     <SelectValue placeholder="Unidades">
                       {field.value}
                     </SelectValue>
@@ -118,8 +107,8 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                   onChange('process', val)
                 }}
               >
-                <FormControl>
-                  <SelectTrigger className="w-[180px]">
+                <FormControl className="mx-auto">
+                  <SelectTrigger className="w-[150px]">
                     <SelectValue placeholder="Processo">
                       {field.value}
                     </SelectValue>
@@ -154,8 +143,8 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                   onChange('transporter', val)
                 }}
               >
-                <FormControl>
-                  <SelectTrigger className="w-[180px]">
+                <FormControl className="mx-auto">
+                  <SelectTrigger className="w-[150px]">
                     <SelectValue placeholder="Transportador">
                       {field.value}
                     </SelectValue>
@@ -190,8 +179,8 @@ export function StatusForm({ handleClick }: StatusFormProps) {
                   onChange('barrel', val)
                 }}
               >
-                <FormControl>
-                  <SelectTrigger className="w-[180px]">
+                <FormControl className="mx-auto">
+                  <SelectTrigger className="w-[150px]">
                     <SelectValue placeholder="Tambor">
                       {field.value}
                     </SelectValue>
@@ -211,12 +200,6 @@ export function StatusForm({ handleClick }: StatusFormProps) {
             </FormItem>
           )}
         />
-        <Button
-          className="bg-orange-500 text-white hover:bg-orange-400 w-full max-w-[180px] md:w-fit"
-          disabled={!form.getValues('barrel')}
-        >
-          Monitorar
-        </Button>
       </form>
     </Form>
   )
