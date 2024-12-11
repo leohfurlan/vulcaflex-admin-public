@@ -20,9 +20,7 @@ export function Barrel({ data }: BarrelProps) {
   }
 
   return (
-    <div className="w-full max-w-[480px] min-w-[280px] border-t-4 border-gray-500 h-20 rounded-l-xl rounded-r-xl border-l-8 border-r-8 p-2 relative">
-      <div className="absolute h-4 w-4 bg-gray-500 top-7 -right-5 rounded-r-sm"></div>
-      <div className="absolute h-4 w-4 bg-gray-500 top-7 -left-5 rounded-l-sm"></div>
+    <div className="w-full max-w-[480px] min-w-[280px] border-t-4 border-gray-500 h-20 rounded-l-xl rounded-r-xl border-l-8 border-r-8 p-2">
       <div className="grid grid-cols-4 gap-3 px-3">
         <span className="text-xs md:text-lg">Placa</span>
         {data?.detalhes.placas.map((_, idx) => (

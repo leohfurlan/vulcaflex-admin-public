@@ -1,13 +1,5 @@
 import axios from 'axios'
-
-interface IBarrelSpecificationResponse {
-  especificacao: string
-  lista: string[]
-  qnt_placas: number
-  qnt_processos: number
-  qnt_tambores: number
-  qnt_transportadores: number
-}
+import { IBarrelSpecificationResponse } from '@/models/BarrelSpecification'
 
 export async function getBarrelSpecification(
   unity?: string,

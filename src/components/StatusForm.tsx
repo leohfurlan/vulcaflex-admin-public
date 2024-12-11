@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import {
@@ -11,8 +12,7 @@ import {
 } from '@/components/ui/select'
 import { useForm } from 'react-hook-form'
 import { useFormContext } from '@/contexts/FormContext'
-import { useRouter } from 'next/router'
-import { useDashboardData } from '@/hooks/useDashboardData'
+import { useDashboardContext } from '@/contexts/DashboardContext'
 
 export interface IFormValues {
   unity: string | undefined
@@ -32,7 +32,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
   const form = useForm<IFormValues>({ defaultValues: formData })
 
   const { dataBarrel, dataProcess, dataTransporter, dataUnity, hasError } =
-    useDashboardData()
+    useDashboardContext()
 
   if (hasError) {
     router.push('/error')
