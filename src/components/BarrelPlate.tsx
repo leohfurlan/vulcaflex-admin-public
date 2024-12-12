@@ -25,7 +25,7 @@ export function BarrelPlate({
       onClick={onClick}
     >
       <span
-        className={`self-center font-bold text-xs md:text-xl ${plateCodeColor(
+        className={`self-center font-bold text-xs lg:text-base ${plateCodeColor(
           thinest,
           removeStyle,
         )}`}
@@ -33,7 +33,7 @@ export function BarrelPlate({
         {plate.codigo}
       </span>
       <div
-        className={`flex justify-center items-center border-2 text-xs md:text-lg ${sectionColor(
+        className={`flex justify-center items-center border-2 text-xs lg:text-base ${sectionColor(
           secao1,
           removeStyle,
         )} p-1 rounded-lg text-center`}
@@ -43,7 +43,7 @@ export function BarrelPlate({
         </span>
       </div>
       <div
-        className={`flex justify-center items-center border-2 text-xs md:text-lg ${sectionColor(
+        className={`flex justify-center items-center border-2 text-xs lg:text-base ${sectionColor(
           secao2,
           removeStyle,
         )} p-1 rounded-lg text-center`}
@@ -53,7 +53,7 @@ export function BarrelPlate({
         </span>
       </div>
       <div
-        className={`flex justify-center items-center border-2 text-xs md:text-lg ${sectionColor(
+        className={`flex justify-center items-center border-2 text-xs lg:text-base ${sectionColor(
           secao3,
           removeStyle,
         )} p-1 rounded-lg text-center`}

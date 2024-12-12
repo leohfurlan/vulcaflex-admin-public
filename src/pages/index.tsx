@@ -1,27 +1,21 @@
 import { useState } from 'react'
-import { Barrel } from '@/components/Barrel'
 import { StatusForm } from '@/components/StatusForm'
 import { useFormContext } from '@/contexts/FormContext'
 import { useGetBarrelDetail } from '@/hooks/useGetBarrelDetail'
-
-import {
-  Bar,
-  BarChart,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts'
-import { inverseTickMap, mapBarrelChart } from '@/utils/chart'
 import { CurrentUnity } from '@/components/CurrentUnity'
 import { CurrentThickness } from '@/components/CurrentThickness'
+import { BarrelDetail } from '@/components/BarrelDetail'
+import { BarrelListChart } from '@/components/BarrelListChat'
+import { useDashboardContext } from '@/contexts/DashboardContext'
+import { BarrelHistoryChart } from '@/components/BarrelHistoryChart'
+import { Button } from '@/components/ui/button'
+import { ArrowLeftCircle } from 'lucide-react'
 
 export default function Home() {
   const [enabled, setEnabled] = useState(false)
   const { formData } = useFormContext()
+  const { plateHistory, setPlateHistory } = useDashboardContext()
   const { data } = useGetBarrelDetail(formData, enabled)
-  const dataBar = mapBarrelChart(data)
 
   return (
     <div className="flex flex-col mb-6">
@@ -31,7 +25,8 @@ export default function Home() {
         </div>
       </div>
 
-      <main className="mx-auto max-w-[340px] mt-2 flex flex-col gap-4">
+      {/* max-width: 640px */}
+      <main className="mx-auto max-w-[340px] mt-2 flex flex-col gap-4 lg:hidden">
         <div className="bg-slate-300 rounded-md mx-auto px-3 py-6">
           <StatusForm handleClick={() => setEnabled(true)} />
         </div>
@@ -44,42 +39,66 @@ export default function Home() {
           <CurrentThickness />
         </div>
 
-        {!!formData.barrel ? (
+        {formData.barrel && data && !plateHistory ? (
           <div className="flex flex-col gap-48 bg-slate-300 px-2 py-4 rounded-md">
-            <div className="flex-1 max-w-[600px]">
-              {data ? <Barrel data={data} /> : null}
-            </div>
-            <div className="lg:flex flex-1 max-w-[600px]">
-              {data ? (
-                <ResponsiveContainer width="100%" minWidth={300} height={300}>
-                  <BarChart width={300} height={40} data={dataBar}>
-                    <XAxis dataKey="key" />
-                    <Bar dataKey="value">
-                      {dataBar?.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
-                      ))}
-                    </Bar>
-                    <Tooltip
-                      formatter={(val: number) => [
-                        inverseTickMap[val],
-                        'Valor',
-                      ]}
-                      contentStyle={{ backgroundColor: '#FFF' }}
-                      cursor={{ fill: 'transparent' }}
-                    />
-                    <YAxis
-                      dataKey="value"
-                      ticks={[1, 2, 3, 4, 5]}
-                      tickFormatter={(tick) => inverseTickMap[tick]}
-                      domain={[0.5, 5]}
-                      padding={{ top: 10 }}
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              ) : null}
-            </div>
+            <BarrelListChart data={data} />
           </div>
         ) : null}
+
+        {formData.barrel && plateHistory ? (
+          <div className="bg-slate-300 p-4 rounded-md min-h-[332px] relative">
+            <div className="flex gap-4 p-2 rounded-md">
+              <span className="font-bold">Placa: {plateHistory}</span>
+              <span className="font-bold">Tambor: {formData.barrel}</span>
+            </div>
+            <BarrelHistoryChart />
+            <Button
+              className="absolute top-4 right-4 flex gap-2 bg-indigo-600 hover:bg-indigo-400"
+              onClick={() => setPlateHistory('')}
+            >
+              <ArrowLeftCircle />
+            </Button>
+          </div>
+        ) : null}
+      </main>
+
+      {/** screens over 1024px */}
+      <main className="hidden lg:flex gap-12 mt-6 w-full max-w-[1200px] mx-auto">
+        <section className="bg-slate-300 p-6 rounded-md mx-auto flex flex-col">
+          <StatusForm handleClick={() => setEnabled(true)} />
+          {data && !plateHistory ? <BarrelDetail data={data} /> : null}
+        </section>
+
+        <section className="flex flex-col flex-1 gap-4 mx-auto">
+          <div className="bg-slate-300 flex gap-8 p-4 rounded-md">
+            <CurrentUnity />
+          </div>
+          <div className="bg-slate-300 flex flex-col p-4 rounded-md">
+            <CurrentThickness />
+          </div>
+
+          {formData.barrel && data && !plateHistory ? (
+            <div className="flex gap-2 bg-slate-300 p-4 rounded-md">
+              <BarrelListChart data={data} />
+            </div>
+          ) : null}
+
+          {formData.barrel && plateHistory ? (
+            <div className="bg-slate-300 p-4 rounded-md min-h-[332px] relative">
+              <div className="flex gap-4 p-2 rounded-md">
+                <span className="font-bold">Placa: {plateHistory}</span>
+                <span className="font-bold">Tambor: {formData.barrel}</span>
+              </div>
+              <BarrelHistoryChart />
+              <Button
+                className="absolute top-4 right-4 flex gap-2 bg-indigo-600 hover:bg-indigo-400"
+                onClick={() => setPlateHistory('')}
+              >
+                <ArrowLeftCircle />
+              </Button>
+            </div>
+          ) : null}
+        </section>
       </main>
     </div>
   )

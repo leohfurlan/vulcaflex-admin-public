@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import { IBarrelDetailResponse } from '@/models/Barrel'
 import { BarrelPlate } from './BarrelPlate'
 import { EMPTY } from '@/constants'
 import { Button } from './ui/button'
+import { useDashboardContext } from '@/contexts/DashboardContext'
 
 interface BarrelProps {
   data: IBarrelDetailResponse
 }
 
 export function Barrel({ data }: BarrelProps) {
-  const router = useRouter()
+  const { setPlateHistory } = useDashboardContext()
   const [selectedPlate, setSelectedPlate] = useState<string>(EMPTY)
 
   const handleSelectPlate = (code: string) => {
@@ -20,11 +20,11 @@ export function Barrel({ data }: BarrelProps) {
   }
 
   return (
-    <div className="w-full max-w-[480px] min-w-[280px] border-t-4 border-gray-500 h-20 rounded-l-xl rounded-r-xl border-l-8 border-r-8 p-2">
+    <div className="w-full max-w-[450px] min-w-[280px] border-t-4 border-gray-500 h-20 rounded-l-xl rounded-r-xl border-l-8 border-r-8 p-2">
       <div className="grid grid-cols-4 gap-3 px-3">
-        <span className="text-xs md:text-lg">Placa</span>
+        <span className="text-xs lg:text-base">Placa</span>
         {data?.detalhes.placas.map((_, idx) => (
-          <span className="text-xs md:text-lg text-center">
+          <span key={idx} className="text-xs lg:text-base text-center">
             Seção {idx + 1}
           </span>
         ))}
@@ -43,7 +43,7 @@ export function Barrel({ data }: BarrelProps) {
       <Button
         className="bg-orange-500 text-white hover:bg-orange-400 w-full mt-3"
         disabled={selectedPlate === EMPTY}
-        onClick={() => router.push(`/history?plateId=${selectedPlate}`)}
+        onClick={() => setPlateHistory(selectedPlate)}
       >
         {selectedPlate !== EMPTY
           ? `Monitorar Placa ${selectedPlate}`

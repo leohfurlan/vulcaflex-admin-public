@@ -36,11 +36,14 @@ interface DashboardContextProps {
   dataBarrel: IBarrelSpecificationResponse | undefined
   dataPlate: IBarrelSpecificationResponse | undefined
   hasError: boolean
+  plateHistory: string
+  setPlateHistory: Dispatch<SetStateAction<string>>
 }
 
 const DashboardContext = createContext({} as DashboardContextProps)
 
 export function DashboardProvider({ children }: DashboardContextProviderProps) {
+  const [plateHistory, setPlateHistory] = useState('')
   const [dashboard, setDashboard] = useState<Dashboard>({
     qtPlate: 0,
     qtProcess: 0,
@@ -131,6 +134,8 @@ export function DashboardProvider({ children }: DashboardContextProviderProps) {
         dataBarrel,
         dataPlate,
         hasError,
+        plateHistory,
+        setPlateHistory,
       }}
     >
       {children}

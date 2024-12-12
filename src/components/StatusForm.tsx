@@ -55,7 +55,7 @@ export function StatusForm({ handleClick }: StatusFormProps) {
   return (
     <Form {...form}>
       <form
-        className="grid grid-cols-2 grid-rows-2 gap-2"
+        className="grid grid-cols-2 grid-rows-2 gap-2 lg:grid-cols-1 lg:grid-rows-4"
         onSubmit={form.handleSubmit((data) => handleClick(data))}
       >
         {/** Unidade */}

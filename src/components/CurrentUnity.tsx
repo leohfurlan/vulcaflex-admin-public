@@ -6,7 +6,7 @@ export function CurrentUnity() {
   const numberClasses = 'text-6xl text-center'
   const textClasses = 'text-center text-sm'
   const cardClasses =
-    'w-32 h-32 flex flex-col justify-center mx-auto bg-white rounded-lg'
+    'w-32 h-32 flex flex-col flex-1 justify-center mx-auto bg-white rounded-lg'
 
   return (
     <>
