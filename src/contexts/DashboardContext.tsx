@@ -20,10 +20,11 @@ interface Dashboard {
   qtBarrel: number
   qtTransporter: number
   currThickness: Map<number, number>
+  location: { lat: number; lng: number }
 }
 
 interface DataSource {
-  key: keyof Omit<Dashboard, 'currThickness'>
+  key: keyof Omit<Dashboard, 'currThickness' | 'location'>
   data: number | undefined
 }
 
@@ -40,6 +41,11 @@ interface DashboardContextProps {
   setPlateHistory: Dispatch<SetStateAction<string>>
 }
 
+const defaultMapCenter = {
+  lat: -19.66528558262811,
+  lng: -43.91411688409867,
+}
+
 const DashboardContext = createContext({} as DashboardContextProps)
 
 export function DashboardProvider({ children }: DashboardContextProviderProps) {
@@ -50,6 +56,7 @@ export function DashboardProvider({ children }: DashboardContextProviderProps) {
     qtBarrel: 0,
     qtTransporter: 0,
     currThickness: new Map<number, number>(),
+    location: defaultMapCenter,
   })
 
   const { formData } = useFormContext()
@@ -120,6 +127,7 @@ export function DashboardProvider({ children }: DashboardContextProviderProps) {
       ...prev,
       ...updates,
       currThickness: map,
+      location: dataPlate?.localizacao ?? defaultMapCenter,
     }))
   }, [dataUnity, dataProcess, dataTransporter, dataBarrel, dataPlate])
 

@@ -9,6 +9,7 @@ import { BarrelListChart } from '@/components/BarrelListChat'
 import { useDashboardContext } from '@/contexts/DashboardContext'
 import { BarrelHistoryChart } from '@/components/BarrelHistoryChart'
 import { Button } from '@/components/ui/button'
+import { MapComponent } from '@/components/MapComponent'
 import { ArrowLeftCircle } from 'lucide-react'
 
 export default function Home() {
@@ -20,8 +21,10 @@ export default function Home() {
   return (
     <div className="flex flex-col mb-6">
       <div className="w-full h-20 bg-slate-600 px-2 py-3 flex items-center">
-        <div className="bg-slate-800 p-2 rounded-full text-sm w-14 h-14 flex items-center justify-center">
-          <span className="text-white font-bold">LLK</span>
+        <div className="w-full max-w-[1200px] mx-auto">
+          <div className="bg-slate-800 p-2 rounded-full text-sm w-14 h-14 flex items-center justify-center">
+            <span className="text-white font-bold">LLK</span>
+          </div>
         </div>
       </div>
 
@@ -38,6 +41,8 @@ export default function Home() {
         <div className="bg-slate-300 flex flex-col p-4 rounded-md">
           <CurrentThickness />
         </div>
+
+        {!plateHistory ? <MapComponent /> : null}
 
         {formData.barrel && data && !plateHistory ? (
           <div className="flex flex-col gap-48 bg-slate-300 px-2 py-4 rounded-md">
@@ -76,6 +81,8 @@ export default function Home() {
           <div className="bg-slate-300 flex flex-col p-4 rounded-md">
             <CurrentThickness />
           </div>
+
+          {!plateHistory ? <MapComponent /> : null}
 
           {formData.barrel && data && !plateHistory ? (
             <div className="flex gap-2 bg-slate-300 p-4 rounded-md">
