@@ -7,6 +7,7 @@ import { LoaderProvider } from '@/contexts/LoaderContext'
 import { LoaderOverlay } from '@/components/LoaderOverlay'
 import { DashboardProvider } from '@/contexts/DashboardContext'
 import { MapProvider } from '@/contexts/MapContext'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 const inter = Inter({ subsets: ['latin'] })
 const queryClient = new QueryClient()
@@ -14,23 +15,25 @@ const queryClient = new QueryClient()
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <LoaderProvider>
-        <FormContextProvider>
-          <DashboardProvider>
-            <MapProvider>
-              <>
-                <style jsx global>{`
-                  html {
-                    font-family: ${inter.style.fontFamily};
-                  }
-                `}</style>
-                <LoaderOverlay />
-                <Component {...pageProps} />
-              </>
-            </MapProvider>
-          </DashboardProvider>
-        </FormContextProvider>
-      </LoaderProvider>
+      <AuthProvider>
+        <LoaderProvider>
+          <FormContextProvider>
+            <DashboardProvider>
+              <MapProvider>
+                <>
+                  <style jsx global>{`
+                    html {
+                      font-family: ${inter.style.fontFamily};
+                    }
+                  `}</style>
+                  <LoaderOverlay />
+                  <Component {...pageProps} />
+                </>
+              </MapProvider>
+            </DashboardProvider>
+          </FormContextProvider>
+        </LoaderProvider>
+      </AuthProvider>
     </QueryClientProvider>
   )
 }

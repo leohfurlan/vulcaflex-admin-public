@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { StatusForm } from '@/components/StatusForm'
 import { useFormContext } from '@/contexts/FormContext'
 import { useGetBarrelDetail } from '@/hooks/useGetBarrelDetail'
@@ -10,13 +11,22 @@ import { useDashboardContext } from '@/contexts/DashboardContext'
 import { BarrelHistoryChart } from '@/components/BarrelHistoryChart'
 import { Button } from '@/components/ui/button'
 import { MapComponent } from '@/components/MapComponent'
+import { useAuth } from '@/contexts/AuthContext'
 import { ArrowLeftCircle } from 'lucide-react'
 
 export default function Home() {
   const [enabled, setEnabled] = useState(false)
+  const router = useRouter()
   const { formData } = useFormContext()
+  const { isAuthenticated } = useAuth()
   const { plateHistory, setPlateHistory } = useDashboardContext()
   const { data } = useGetBarrelDetail(formData, enabled)
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.replace('/auth')
+    }
+  }, [isAuthenticated, router])
 
   return (
     <div className="flex flex-col mb-6">
