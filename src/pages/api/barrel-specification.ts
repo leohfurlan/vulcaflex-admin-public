@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    const { data } = await api.get('/tambor_especificacoes', {
+    const { data } = await api.get('/tambor_info', {
       params: req.query,
     })
     res.status(200).json(data)

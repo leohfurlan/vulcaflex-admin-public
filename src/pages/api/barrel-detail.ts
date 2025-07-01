@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    const { data } = await api.get('/tambor_detalhes', { params: req.query })
+    const { data } = await api.get('/tambor_agora', { params: req.query })
     res.status(200).json(data)
   } catch (error) {
     res.status(500).json({ message: 'Erro Tambor Detalhes!' })

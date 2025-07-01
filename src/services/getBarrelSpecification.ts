@@ -10,19 +10,19 @@ export async function getBarrelSpecification(
   const params = new URLSearchParams()
 
   if (unity) {
-    params.append('unidadeCliente', unity)
+    params.append('unidade', unity)
   }
 
   if (process) {
-    params.append('processoUnidade', process)
+    params.append('processo', process)
   }
 
   if (transporter) {
-    params.append('transportadorCorreia', transporter)
+    params.append('transportador', transporter)
   }
 
   if (barrelId) {
-    params.append('tamborId', barrelId)
+    params.append('Id', barrelId)
   }
 
   try {
